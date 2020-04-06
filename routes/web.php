@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\User;
 use App\JhonatanPermission\Models\Role;
+use App\JhonatanPermission\Models\Permission;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,7 +55,7 @@ return   Role::create([
     */
 
 
-    $user = User::find(1);
+    //$user = User::find(1);
 
     /*
         en: create new record
@@ -77,12 +78,24 @@ return   Role::create([
         es: elimina de la base de datos los roles que no estén en el array asi como tambien crea aquellos registros que no estén en la base de datos.
 
     */ 
-    $user->roles()->sync([1,2]);
+    //$user->roles()->sync([1,2]);
 
-    return $user->roles;
+    //return $user->roles;
 
 
-    
+   /* return   Permission::create([
+        'name' => 'List product',
+        'slug' => 'product.index',
+        'description' => 'A user can list permissions',
+        
+
+    ]);*/
+
+    $role = Role::find(2);
+
+    $role->permissions()->sync([1,2]);
+
+    return $role->permissions;
 
 
 
