@@ -27,7 +27,11 @@ class RoleController extends Controller
      */
     public function create()
     {
-        //
+        $permissions = Permission::get();
+
+        return view('role.create', compact('permissions'));
+
+
     }
 
     /**
@@ -38,7 +42,7 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $request->all();
     }
 
     /**
