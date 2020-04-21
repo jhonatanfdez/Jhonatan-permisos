@@ -143,7 +143,7 @@ class JhonatanPermissionInfoSeeder extends Seeder
         */
         
         //table permission_role
-        $roladmin->permissions()->sync( $permission_all);
+        //$roladmin->permissions()->sync( $permission_all);
 
 
 

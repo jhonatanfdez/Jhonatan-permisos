@@ -8,11 +8,7 @@
                 <div class="card-header"><h2>Create Role</h2></div>
 
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+                   @include('custom.message')
 
 
                 
@@ -47,7 +43,7 @@
 
                           <h3>Full Access</h3>
                           <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="fullaccessyes" name="full-access" class="custom-control-input" value="es">
+                            <input type="radio" id="fullaccessyes" name="full-access" class="custom-control-input" value="yes">
                             <label class="custom-control-label" for="fullaccessyes">Yes</label>
                           </div>
                           <div class="custom-control custom-radio custom-control-inline">

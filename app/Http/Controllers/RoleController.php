@@ -42,7 +42,22 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        return $request->all();
+        
+        $request->validate([
+            'name'          => 'required|max:50|unique:roles,name',
+            'slug'          => 'required|max:50|unique:roles,slug',
+            'full-access'   => 'required|in:yes,no'
+        ]);
+
+        $role = Role::create($request->all());
+        
+        if ($request->get('permission')) {
+            //return $request->all();
+            $role->permissions()->sync($request->get('permission'));
+        }
+        return redirect()->route('role.index')
+            ->with('status_success','Role saved successfully'); 
+       
     }
 
     /**
