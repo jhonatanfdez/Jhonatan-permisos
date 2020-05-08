@@ -66,9 +66,23 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Role $role)
     {
-        //
+        $permission_role=[];
+
+        foreach($role->permissions as $permission) {
+            $permission_role[]=$permission->id; 
+        }
+        //return   $permission_role;
+
+
+        //return $role;
+        $permissions = Permission::get();
+
+
+
+
+        return view('role.view', compact('permissions','role','permission_role'));
     }
 
     /**
@@ -129,8 +143,12 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
+    public function destroy(Role $role)
+    {   
+        $role->delete();
+
+        return redirect()->route('role.index')
+            ->with('status_success','Role successfully removed'); 
+        
     }
 }
