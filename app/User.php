@@ -5,10 +5,11 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\JhonatanPermission\Traits\UserTrait;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, UserTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -38,10 +39,7 @@ class User extends Authenticatable
     ];
 
 
-    //es: desde aqui
-    //en: from here
+    
 
-    public function roles(){
-        return $this->belongsToMany('App\JhonatanPermission\Models\Role')->withTimesTamps();
-    }
+   
 }

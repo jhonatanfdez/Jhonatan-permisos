@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\JhonatanPermission\Models\Role;
 use App\JhonatanPermission\Models\Permission;
+use Illuminate\Support\Facades\Gate;
 
 class RoleController extends Controller
 {
@@ -15,6 +16,8 @@ class RoleController extends Controller
      */
     public function index()
     {
+        Gate::authorize('haveaccess','role.index');
+
         $roles =  Role::orderBy('id','Desc')->paginate(2);
 
         return view('role.index',compact('roles'));
@@ -27,6 +30,8 @@ class RoleController extends Controller
      */
     public function create()
     {
+        Gate::authorize('haveaccess','role.create');
+
         $permissions = Permission::get();
 
         return view('role.create', compact('permissions'));
@@ -42,7 +47,8 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        
+        Gate::authorize('haveaccess','role.create');
+
         $request->validate([
             'name'          => 'required|max:50|unique:roles,name',
             'slug'          => 'required|max:50|unique:roles,slug',
@@ -51,10 +57,10 @@ class RoleController extends Controller
 
         $role = Role::create($request->all());
         
-        if ($request->get('permission')) {
+        //if ($request->get('permission')) {
             //return $request->all();
             $role->permissions()->sync($request->get('permission'));
-        }
+        //}
         return redirect()->route('role.index')
             ->with('status_success','Role saved successfully'); 
        
@@ -68,6 +74,8 @@ class RoleController extends Controller
      */
     public function show(Role $role)
     {
+        $this->authorize('haveaccess','role.show');
+
         $permission_role=[];
 
         foreach($role->permissions as $permission) {
@@ -94,6 +102,7 @@ class RoleController extends Controller
     public function edit(Role $role)
     {   
 
+        $this->authorize('haveaccess','role.edit');
         $permission_role=[];
 
         foreach($role->permissions as $permission) {
@@ -121,6 +130,7 @@ class RoleController extends Controller
      */
     public function update(Request $request, Role $role)
     {
+        $this->authorize('haveaccess','role.edit');
         $request->validate([
             'name'          => 'required|max:50|unique:roles,name,'.$role->id,
             'slug'          => 'required|max:50|unique:roles,slug,'.$role->id,
@@ -129,10 +139,10 @@ class RoleController extends Controller
 
         $role->update($request->all());
         
-        if ($request->get('permission')) {
+        //if ($request->get('permission')) {
             //return $request->all();
             $role->permissions()->sync($request->get('permission'));
-        }
+        //}
         return redirect()->route('role.index')
             ->with('status_success','Role updated successfully'); 
     }
@@ -145,6 +155,7 @@ class RoleController extends Controller
      */
     public function destroy(Role $role)
     {   
+        $this->authorize('haveaccess','role.destroy');
         $role->delete();
 
         return redirect()->route('role.index')

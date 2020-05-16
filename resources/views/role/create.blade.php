@@ -103,7 +103,7 @@
 
                           @endforeach
                           <hr>
-                          <input class="btn btn-primary" type="submit" value="Guardar">
+                          <input class="btn btn-primary" type="submit" value="Save">
 
 
 
