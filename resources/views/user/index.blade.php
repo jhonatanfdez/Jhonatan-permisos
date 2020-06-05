@@ -39,14 +39,24 @@
                                 @endisset
                                 
                                 </td>
-                                <td> <a class="btn btn-info" href="{{ route('user.show',$user->id)}}">Show</a> </td>  
-                                <td> <a class="btn btn-success" href="{{ route('user.edit',$user->id)}}">Edit</a> </td>  
                                 <td> 
+                                @can('view',[$user, ['user.show','userown.show'] ])
+                                  <a class="btn btn-info" href="{{ route('user.show',$user->id)}}">Show</a> 
+                                @endcan
+                                </td>  
+                                <td> 
+                                @can('view', [$user, ['user.edit','userown.edit'] ])
+                                  <a class="btn btn-success" href="{{ route('user.edit',$user->id)}}">Edit</a> 
+                                @endcan
+                                </td>  
+                                <td> 
+                                @can('haveaccess','user.destroy')
                                   <form action="{{ route('user.destroy',$user->id)}}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button class="btn btn-danger">Delete</button>
                                   </form>
+                                @endcan
                                   
 
                                 </td>  
