@@ -46,6 +46,15 @@ class JhonatanPermissionInfoSeeder extends Seeder
             'full-access' => 'yes'
     
         ]);
+
+         //rol Registered User
+         $roluser=Role::create([
+            'name' => 'Registered User',
+            'slug' => 'registereduser',
+            'description' => 'Registered User',
+            'full-access' => 'no'
+    
+        ]);
         
         //table role_user
         $useradmin->roles()->sync([ $roladmin->id ]);
